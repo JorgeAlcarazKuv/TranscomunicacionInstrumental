@@ -18,6 +18,7 @@ public class GeneradorPsicofonias {
   // Métodos
   public static void generaArchivo(int numLineas) {
     String linea;
+    boolean ultEspacio = false;
     try (BufferedWriter bw = new BufferedWriter(new FileWriter("portadora.txt"))) {
       
       for (int i = 0; i < numLineas; i++) {
@@ -26,7 +27,10 @@ public class GeneradorPsicofonias {
         for (int z = 0; z < 100; z++) { // Escribimos 100 caracteres por línea
           switch ((int) (Math.random() * 5)) { // 20% De posibilidad de generar espacio, 80% de carácter
           case 0:
-            linea += " ";
+            if (!ultEspacio) {
+              linea += " ";
+              ultEspacio = true;
+            }
             break;
           case 1:
           case 2:
@@ -42,6 +46,7 @@ public class GeneradorPsicofonias {
               }
             }
             linea = linea + listaCaracteres[randomPos]; // randomPos será un número aleatorio dependiente de los pesos
+            ultEspacio = false;
             break;
           }
         }
